@@ -28,11 +28,6 @@ function solution(letter) {
     "--..": "z",
   };
 
-  let arr = letter.split(" ");
-  let answer = "";
-  arr.forEach((v) => {
-    answer += morse[v];
-  });
-
-  return answer;
+  return letter.split(" ").reduce((pre, cur) => pre + morse[cur], "");
 }
+
