@@ -1,27 +1,13 @@
-function solution(numbers) {
-    let answer = [];
-    let maxnum = 0;
-    let stack = [];
-    
-    for(let i=numbers.length-1; i>=0; i--){
-        if(maxnum<=numbers[i]){
-            maxnum = numbers[i];
-            answer.push(-1);
-            stack = [];
-            stack.push(numbers[i]);
-        }else{
-            let j=0;
-            while(1){
-              if(numbers[i]<stack[j]){
-                 answer.push(stack[j]);
-                 stack.unshift(numbers[i]); 
-                 break;
-               }else{
-                   stack.shift();
-               }
-            } 
+function solution(nums) {
+    const dp = new Array(nums.length).fill(-1);
+    console.log(dp);
+    const stack = [0];
+    console.log(stack.length);
+    for (let i = 1; i < nums.length; i++) {
+        while (stack.length && nums[stack[stack.length - 1]] < nums[i]) {
+            dp[stack.pop()] = nums[i];
         }
+        stack.push(i);
     }
-    answer.reverse();
-    return answer;
+    return dp;
 }
