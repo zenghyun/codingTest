@@ -1,21 +1,15 @@
 function solution(polynomial) {
-    const polynomials = polynomial.split(' + ') 
-    let coefficientX=0,constValue=0 
-    polynomials.forEach((value)=>{
-        if(value.indexOf('x') > -1){
-            const addCoefficientX = Number(value.slice(0,value.length-1))
-            coefficientX += (addCoefficientX ? addCoefficientX : 1)
-        }
-        else{
-            constValue += Number(value)
-        }
-    })
-    let answer = ''
-    if(coefficientX){
-        answer = answer.concat(coefficientX===1 ? 'x' : `${coefficientX}x`)
-    }
-    if(constValue){
-        answer = answer.concat(answer ? ` + ${constValue}` : `${constValue}`)
-    }
-    return answer
+    const arr = polynomial.split(" + ");
+    const xNum = arr
+                .filter(n => n.includes("x"))
+                .map(n => n.replace('x', '') || '1')
+                .reduce((acc, cur) => acc + parseInt(cur, 10), 0);
+    const num = arr
+                .filter(n => !isNaN(n))
+                .reduce((acc, cur) => acc + parseInt(cur, 10), 0);
+
+    let answer = [];
+    if(xNum) answer.push(`${xNum === 1 ? "" : xNum}x`);
+    if(num) answer.push(num);
+    return answer.join(" + ");
 }
